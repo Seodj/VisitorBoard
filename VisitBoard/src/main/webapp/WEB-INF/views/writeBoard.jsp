@@ -12,10 +12,14 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <form action="BoardController?cmd=write" method="post">
-Email <input type="text" name="email"/>
-Password <input type="password" name="password"/>
-Content <input type="textarea" name="content"/>
-<input type="submit"/>
+<table>
+<tr>
+<td>Email <input type="text" name="email"/></td>
+<td>Password <input type="password" name="password"/></td>
+<td><input type="submit" value="완료"/></td>
+</tr>
+<tr><td>Content<br><textarea rows="15" cols="40" name="content"></textarea></td></tr>
+</table>
 </form>
 </body>
 </html>

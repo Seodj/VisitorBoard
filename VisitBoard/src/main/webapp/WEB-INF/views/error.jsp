@@ -10,8 +10,7 @@
 	
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
-<a href = "writeBoard">방명록 쓰기</a>
-<a href="BoardController?cmd=read">방명록 읽기</a>
+<P>  에러가 발생하였습니다. </P>
+<a href = "">처음으로</a>
 </body>
 </html>

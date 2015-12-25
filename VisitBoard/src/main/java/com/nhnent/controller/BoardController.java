@@ -1,7 +1,8 @@
-package com.nhnent.test;
+package com.nhnent.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nhnent.board.Board;
 import com.nhnent.board.BoardDao;
-import com.nhnent.board.User;
 
 @SuppressWarnings("serial")
 @WebServlet("/BoardController")
@@ -24,7 +24,7 @@ public class BoardController extends HttpServlet{
 		if(cmd.equals("write")){
 			write(request,response);
 		}else if(cmd.equals("read")){
-			
+			read(request,response);
 		}else if(cmd.equals("modify")){
 			
 		}
@@ -32,11 +32,13 @@ public class BoardController extends HttpServlet{
 	
 	public void write(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// 전송된 데이터 얻어오기
+		int index = 0;
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String content = request.getParameter("content");
+		Date time = null;
 		
-		Board board = new Board(email,password,content);
+		Board board = new Board(index, email,password,content);
 		
 		// 데이터를 db에 저장하기
 		BoardDao boardDao = new BoardDao();
@@ -46,7 +48,20 @@ public class BoardController extends HttpServlet{
 		if(isInsert){
 			response.sendRedirect("/visitorboard");
 		} else{
-			response.sendRedirect("error.jsp");
+			request.getRequestDispatcher("/error").forward(request, response);
+		}
+	}
+	
+	public void read(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		// 리스트 얻어오기
+		BoardDao boardDao = new BoardDao();
+		List<Board> boardList = boardDao.getList();
+		
+		if(boardList != null){
+			request.setAttribute("boardList", boardList);
+			request.getRequestDispatcher("/readBoard").forward(request, response);
+		} else{
+			request.getRequestDispatcher("/error").forward(request, response);
 		}
 	}
 

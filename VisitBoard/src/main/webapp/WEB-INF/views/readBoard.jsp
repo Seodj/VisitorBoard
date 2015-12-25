@@ -3,15 +3,23 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Index</title>
+	<title>Home</title>
 </head>
 <body>
 <h1>
-	
+	Hello!  
 </h1>
-
-<P>  The time on the server is ${serverTime}. </P>
-<a href = "writeBoard">방명록 쓰기</a>
-<a href="BoardController?cmd=read">방명록 읽기</a>
+<table>
+<tr>
+<th>이메일</th>
+<th>내용</th>
+</tr>
+<c:forEach var="list" items="${boardList}">
+<tr>
+<td>${list.email}</td>
+<td>${list.content}</td>
+</tr>
+</c:forEach>
+</table>
 </body>
 </html>

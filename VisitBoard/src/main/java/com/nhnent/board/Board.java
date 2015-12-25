@@ -1,30 +1,27 @@
 package com.nhnent.board;
 
-import java.text.DateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class Board {
-	Date formattedDate = new Date();
-	Locale locale = new Locale("ko");
-	DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-	int index;
+	Integer index;
 	String email;
 	String password;
 	String content;
-	String date = dateFormat.format(formattedDate);
+	Date time;
 	
-	public Board(String email,String password, String content){
+	private Board(){}
+	
+	public Board(Integer index, String email, String password, String content){
+		this.index = index;
 		this.email = email;
 		this.password = password;
 		this.content = content;
 	}
 	
-	public int getIndex() {
+	public Integer getIndex() {
 		return index;
 	}
-	public void setIndex(int index) {
+	public void setIndex(Integer index) {
 		this.index = index;
 	}
 	public String getEmail() {
@@ -45,12 +42,12 @@ public class Board {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
+	public Date getTime() {
+		return time;
 	}
 
+	public void setTime(Date time) {
+		this.time = time;
+	}
 	
 }

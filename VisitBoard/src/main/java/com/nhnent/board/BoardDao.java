@@ -1,5 +1,7 @@
 package com.nhnent.board;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -24,6 +26,17 @@ public class BoardDao {
 			} else{
 				return false;
 			}
+		} finally{
+			if(session!=null)
+				session.close();
+		}
+	}
+	
+	public List<Board> getList(){
+		SqlSession session = null;
+		try{
+			session = sqlSessionFactory.openSession();
+			return session.selectList("getBoard");
 		} finally{
 			if(session!=null)
 				session.close();
