@@ -3,7 +3,7 @@ package com.nhnent.board;
 import java.util.Date;
 
 public class Board {
-	Integer index;
+	Integer boardindex;
 	String email;
 	String password;
 	String content;
@@ -11,18 +11,19 @@ public class Board {
 	
 	private Board(){}
 	
-	public Board(Integer index, String email, String password, String content){
-		this.index = index;
+	public Board(Integer boardindex, String email, String password, String content){
+		this.boardindex = boardindex;
 		this.email = email;
 		this.password = password;
 		this.content = content;
 	}
-	
-	public Integer getIndex() {
-		return index;
+
+	public Integer getBoardindex() {
+		return boardindex;
 	}
-	public void setIndex(Integer index) {
-		this.index = index;
+
+	public void setBoardindex(Integer boardindex) {
+		this.boardindex = boardindex;
 	}
 	public String getEmail() {
 		return email;

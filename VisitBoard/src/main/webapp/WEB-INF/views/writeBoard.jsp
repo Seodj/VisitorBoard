@@ -3,22 +3,21 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Write Board</title>
 </head>
 <body>
 <h1>
 	Hello!  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
 <form action="BoardController?cmd=write" method="post">
-<table>
-<tr>
-<td>Email <input type="text" name="email"/></td>
-<td>Password <input type="password" name="password"/></td>
-<td><input type="submit" value="완료"/></td>
-</tr>
-<tr><td>Content<br><textarea rows="15" cols="40" name="content"></textarea></td></tr>
+<table class="table">
+	<tr>
+		<td>Email <input type="text" name="email"/></td>
+		<td>Password <input type="password" name="password"/></td>
+		<td><input type="submit" value="완료"/></td>
+	</tr>
+	<tr><td>Content<br><textarea rows="15" cols="40" name="content"></textarea></td></tr>
 </table>
 </form>
 </body>

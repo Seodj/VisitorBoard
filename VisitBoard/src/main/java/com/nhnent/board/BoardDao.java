@@ -36,16 +36,35 @@ public class BoardDao {
 		SqlSession session = null;
 		try{
 			session = sqlSessionFactory.openSession();
-			return session.selectList("getBoard");
+			return session.selectList("getBoardList");
 		} finally{
 			if(session!=null)
 				session.close();
 		}
 	}
 	
-	// board update
-	public boolean update(Board board){
-		return false;
+	public Board getOne(String boardindex){
+		SqlSession session = null;
+		try{
+			session = sqlSessionFactory.openSession();
+			return session.selectOne("getBoardOne",boardindex);
+		} finally{
+			if(session!=null)
+				session.close();
+		}
+	}
+	
+	// board edit
+	public int edit(Board board){
+		SqlSession session = null;
+		try{
+			session = sqlSessionFactory.openSession();
+			return session.update("editBoard",board);
+		} finally{
+			if(session!=null)
+				session.commit();
+				session.close();
+		}
 	}
 
 }

@@ -49,6 +49,13 @@ public class IndexController {
 		return "readBoard";
 	}
 	
+	@RequestMapping(value = "/editBoard", method = RequestMethod.GET)
+	public String editBoard(Locale locale, Model model) {
+		logger.info("edit !!.", locale);
+		
+		return "editBoard";
+	}
+	
 	@RequestMapping(value = "/error", method = RequestMethod.GET)
 	public String goErrorPage(Locale locale, Model model) {
 		logger.info("error !!.", locale);

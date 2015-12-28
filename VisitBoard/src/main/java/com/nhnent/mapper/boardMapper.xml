@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="sqlMapper">
-     <select id="getBoard" resultType="com.nhnent.board.Board">
+ 	<select id="getBoardOne" resultType="com.nhnent.board.Board">
+     	SELECT * FROM VISITBOARD WHERE BOARDINDEX = #{boardindex};
+     </select>
+ 
+     <select id="getBoardList" resultType="com.nhnent.board.Board">
      	SELECT * FROM VISITBOARD ORDER BY TIME DESC;
      </select>
  
      <insert id="writeBoard" parameterType="com.nhnent.board.Board">
      	INSERT INTO VISITBOARD VALUES(null,#{email},#{password},#{content},null);
      </insert>
+     
+	 <update id="editBoard" parameterType="com.nhnent.board.Board">
+    	UPDATE VISITBOARD SET CONTENT = #{content}, TIME = NULL WHERE BOARDINDEX = #{boardindex} AND PASSWORD = #{password};
+     </update>
+     
+     <delete id="deleteBoard">
+     	DELETE FROM VISITBOARD WHERE BOARDINDEX = #{boardindex};
+     </delete>
 </mapper>

@@ -1,6 +1,7 @@
 package com.nhnent.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import com.nhnent.board.BoardDao;
 @SuppressWarnings("serial")
 @WebServlet("/BoardController")
 public class BoardController extends HttpServlet{
+	BoardDao boardDao = new BoardDao();
+	
 	protected void service(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -25,8 +28,10 @@ public class BoardController extends HttpServlet{
 			write(request,response);
 		}else if(cmd.equals("read")){
 			read(request,response);
-		}else if(cmd.equals("modify")){
-			
+		}else if(cmd.equals("getOne")){
+			getOne(request,response);
+		}else if(cmd.equals("edit")){
+			edit(request,response);
 		}
 	}
 	
@@ -41,7 +46,6 @@ public class BoardController extends HttpServlet{
 		Board board = new Board(index, email,password,content);
 		
 		// 데이터를 db에 저장하기
-		BoardDao boardDao = new BoardDao();
 		boolean isInsert = boardDao.write(board);
 		
 		// 뷰페이지로 이동
@@ -54,12 +58,43 @@ public class BoardController extends HttpServlet{
 	
 	public void read(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// 리스트 얻어오기
-		BoardDao boardDao = new BoardDao();
 		List<Board> boardList = boardDao.getList();
 		
 		if(boardList != null){
 			request.setAttribute("boardList", boardList);
 			request.getRequestDispatcher("/readBoard").forward(request, response);
+		} else{
+			request.getRequestDispatcher("/error").forward(request, response);
+		}
+	}
+	
+	public void getOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		// 리스트 얻어오기
+		String boardindex = request.getParameter("boardindex");
+		Board board = boardDao.getOne(boardindex);
+		
+		if(board != null){
+			request.setAttribute("board", board);
+			request.getRequestDispatcher("/editBoard").forward(request, response);
+		} else{
+			request.getRequestDispatcher("/error").forward(request, response);
+		}
+	}
+	
+	public void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		// 리스트 얻어오기
+		PrintWriter out = response.getWriter();
+		
+		int boardindex = Integer.parseInt(request.getParameter("boardindex"));
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String content = request.getParameter("content");
+		Board editBoard = new Board(boardindex, email, password, content);
+		int checkEdit = boardDao.edit(editBoard);
+		
+		if(checkEdit > 0){
+			System.out.println("success edit board");
+			out.println("<script>alert('Sucess Edit');window.opener.location.reload();window.close();</script>");
 		} else{
 			request.getRequestDispatcher("/error").forward(request, response);
 		}
