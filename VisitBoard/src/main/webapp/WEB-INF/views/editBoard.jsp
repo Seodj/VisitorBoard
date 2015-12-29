@@ -15,7 +15,7 @@
 <form name="editform" action="BoardController?cmd=edit" method="post">
 	<input type="hidden" name="boardindex" value="${board.boardindex}"/>
 	<input type="hidden" name="email" value="${board.email}"/>
-	<textarea rows="15" cols="150" name="content">${board.content}</textarea><br>
+	<textarea rows="15" cols="150" id="content" name="content">${board.content}</textarea><br>
 	Password : <input type="password" id="password" name="password"/><br>
 	<input type="button" class="btn btn-default btn-sm" value="edit" onclick="modify('${board.password}')"/>
 </form>
@@ -23,7 +23,10 @@
 <script>
 	function modify(password){
 		var userPassword = document.getElementById("password").value;
-		if(userPassword != password){
+		var content = document.getElementById("content").value;
+		if(userPassword=="" || content==""){
+			alert("empty contents");
+		} else if(userPassword != password){
 			alert("패스워드가 일치하지 않습니다.");
 		} else{
 			document.editform.submit();

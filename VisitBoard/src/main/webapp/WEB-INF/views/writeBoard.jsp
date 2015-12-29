@@ -10,15 +10,31 @@
 	Hello!  
 </h1>
 
-<form action="BoardController?cmd=write" method="post">
+<form name="writeform" action="BoardController?cmd=write" method="post">
 <table class="table">
 	<tr>
-		<td>Email <input type="text" name="email"/></td>
-		<td>Password <input type="password" name="password"/></td>
-		<td><input type="submit" value="완료"/></td>
+		<td>Email <input type="text" id="email" name="email"/></td>
+		<td>Password <input type="password" id="password" name="password"/></td>
+		<td><input type="button" value="완료" onclick="isValid()"/></td>
 	</tr>
-	<tr><td>Content<br><textarea rows="15" cols="40" name="content"></textarea></td></tr>
+	<tr><td>Content<br><textarea rows="15" cols="40" id="content" name="content"></textarea></td></tr>
 </table>
 </form>
 </body>
+<script>
+	function isValid(){
+		var email = document.getElementById("email").value;
+		var password = document.getElementById("password").value;
+		var content = document.getElementById("content").value;
+		var reg_email=/^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
+		
+		if(email=="" || password=="" || content==""){
+			alert("empty contents")
+		} else if(reg_email.test(email) == false){
+			alert("not valid email");
+		} else{
+			document.writeform.submit();
+		}
+	}
+</script>
 </html>

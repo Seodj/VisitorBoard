@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,6 +44,16 @@ public class BoardController extends HttpServlet{
 		String password = request.getParameter("password");
 		String content = request.getParameter("content");
 		Date time = null;
+		
+		String regex_email = "/^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/";
+		Pattern pattern = Pattern.compile(regex_email);
+		Matcher match = pattern.matcher(email);
+		
+		if(!match.find()){
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('not valid email');history.back();</script>");
+			return ;
+		}
 		
 		Board board = new Board(index, email,password,content);
 		
