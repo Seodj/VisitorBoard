@@ -3,7 +3,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Index</title>
+	<title>Error</title>
 </head>
 <body>
 <h1>

@@ -36,7 +36,7 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/writeBoard", method = RequestMethod.GET)
-	public String writeBoard(Locale locale, Model model) {
+	public String writeBoard(Locale locale, Model model) throws Exception{
 		logger.info("write the board.", locale);
 		
 		return "writeBoard";

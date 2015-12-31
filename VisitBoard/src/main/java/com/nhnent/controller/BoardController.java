@@ -45,11 +45,11 @@ public class BoardController extends HttpServlet{
 		String content = request.getParameter("content");
 		Date time = null;
 		
-		String regex_email = "/^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/";
+		String regex_email = "^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$";
 		Pattern pattern = Pattern.compile(regex_email);
 		Matcher match = pattern.matcher(email);
 		
-		if(!match.find()){
+		if(!(match.find())){
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('not valid email');history.back();</script>");
 			return ;
@@ -106,7 +106,7 @@ public class BoardController extends HttpServlet{
 		
 		if(checkEdit > 0){
 			System.out.println("success edit board");
-			out.println("<script>alert('Sucess Edit');window.opener.location.reload();window.close();</script>");
+			out.println("<script>alert('Success Edit');window.opener.location.reload();window.close();</script>");
 		} else{
 			request.getRequestDispatcher("/error").forward(request, response);
 		}

@@ -3,6 +3,8 @@
 <%@ page session="false" %>
 <html>
 <head>
+	<script type="text/javascript" src='<c:url value="/resources/js/core.js"/>'></script>
+	<script type="text/javascript" src='<c:url value="/resources/js/sha256.js"/>'></script>
 	<title>Write Board</title>
 </head>
 <body>
@@ -17,7 +19,7 @@
 		<td>Password <input type="password" id="password" name="password"/></td>
 		<td><input type="button" value="완료" onclick="isValid()"/></td>
 	</tr>
-	<tr><td>Content<br><textarea rows="15" cols="40" id="content" name="content"></textarea></td></tr>
+	<tr><td>Content<br><textarea rows="15" cols="40" id="content" size="100" name="content"></textarea></td></tr>
 </table>
 </form>
 </body>
@@ -28,11 +30,14 @@
 		var content = document.getElementById("content").value;
 		var reg_email=/^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/;
 		
-		if(email=="" || password=="" || content==""){
+	    var sha256 = CryptoJS.SHA256(password).toString();
+
+	    if(email=="" || password=="" || content==""){
 			alert("empty contents")
 		} else if(reg_email.test(email) == false){
-			alert("not valid email");
+			alert("client not valid email");
 		} else{
+			document.getElementById("password").value = sha256;
 			document.writeform.submit();
 		}
 	}
